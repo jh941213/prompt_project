@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SKT 에이닷 냉장고를 부탁해</title>
+    <link rel="stylesheet" href="/static/styles.css"> 
+    <link rel="icon" href="{{ url_for('static', filename='images/skfavicon.ico') }}"  type="image/x-icon">
+    <script>
+        function goToChatbotPage() {
+            window.location.href = "{{ url_for('chatbot') }}";
+        }
+    </script>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='images/adotlogo.png') }}" alt="에이닷 로고" class="logo-img">
+    </div>
+    
+    <div class="centered-container">
+        <img src="{{ url_for('static', filename='images/fridge.png') }}" alt="냉장고를 부탁해" class="centered-image" style="width: 200px;">
+
+    </div>
+
+    <form action="/" method="post" enctype="multipart/form-data">
+        <label for="ingredients">냉장고에 있는 재료를 입력하세요</label>
+        <input type="text" name="ingredients" required placeholder="예: 김치, 돼지고기, 토마토">
+        <input type="submit" value="에이닷에게 물어보기">
+    </form>
+    <div class="camera-button-container">
+        <input type="button" class="camera-button" value="카메라로 찾기">
+    </div>
+   
+    {% if menu %}
+    <div style="background-color: rgba(255, 255, 255, 0.7); padding: 20px; border-radius: 10px; margin-top: 20px;">
+        <h2>추천메뉴: {{ menu }}</h2>
+        {% if menu_image_url %}  <!-- 이미지 URL이 있을 경우 이미지를 출력합니다. -->
+        <div class="menu-image-container">
+            <img src="{{ menu_image_url }}" alt="{{ menu }} Image">
+        </div>
+        {% endif %}
+        <h3>자세한 레시피:</h3>
+        <p>{{ detailed_recipe }}</p>
+        <div class="chat-button-container">
+            <input type="button" class="chat-button" value="에이닷과 대화하기" onclick="goToChatbotPage()">
+        </div>
+    </div>
+    {% endif %}
+</body>
+</html>
